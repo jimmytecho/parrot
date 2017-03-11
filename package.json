@@ -1,0 +1,16 @@
+{
+  "name": "parrot",
+  "version": "1.0.0",
+  "description": "my first chatbot!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jimmytecho",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "request": "^2.80.0"
+  }
+}
