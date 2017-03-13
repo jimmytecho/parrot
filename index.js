@@ -63,7 +63,7 @@ var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXn
 
 // function to translate
 
-
+//nothing here yet
 
 // function to echo back messages - added by Stefan
 
