@@ -1,11 +1,11 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var request = require('request')
-//var app = express()
+var app = express()
 
 var jsdom = require('jsdom')
 var url = require('url')
-var app = module.exports = express.createServer();
+//var app = module.exports = express.createServer();
 
 app.set('port', (process.env.PORT || 5000))
 
