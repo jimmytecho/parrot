@@ -44,6 +44,7 @@ app.post('/webhook/', function (req, res) {
                 continue
             }
             sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
+            sendTranslation(sender, text.substring(0, 200))
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
@@ -55,6 +56,31 @@ app.post('/webhook/', function (req, res) {
 })
 
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
+
+// function to translate
+
+function sendTranslation(sender, text) {
+    var translated_text = "trying to translate";
+    messageData = {
+        text:translated_text
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+
+}
 
 // function to echo back messages - added by Stefan
 
@@ -97,11 +123,11 @@ function sendGenericMessage(sender) {
                         "url": "https://www.facebook.com/groups/aichatbots/",
                         "title": "FB Chatbot Group"
                     }, {
-                        "type": "web_url",
+                        "type": "web_url", 
                         "url": "https://www.reddit.com/r/Chat_Bots/",
                         "title": "Chatbots on Reddit"
                     },{
-                        "type": "web_url",
+                        "type": "web_url",                           //or postback , "title":"anything", "payload":"what you want to say"
                         "url": "https://twitter.com/aichatbots",
                         "title": "Chatbots on Twitter"
                     }],
