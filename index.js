@@ -1,7 +1,11 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var request = require('request')
-var app = express()
+//var app = express()
+
+var jsdom = require('jsdom')
+var url = require('url')
+var app = module.exports = express.createServer();
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -61,6 +65,13 @@ var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXn
 
 function sendTranslation(sender, text) {
     var translated_text = "trying to translate";
+    var Result;
+    string website =    "https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149397726,d.cGc&biw=1298&bih=678&dpr=1&um=1&ie=UTF-8&hl=en&client=tw-ob#en/fr/"
+
+    
+
+
+
     messageData = {
         text:translated_text
     }
