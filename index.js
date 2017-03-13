@@ -3,8 +3,8 @@ var bodyParser = require('body-parser')
 var request = require('request')
 var app = express()
 
-var jsdom = require('jsdom')
-var url = require('url')
+//var jsdom = require('jsdom')
+//var url = require('url')
 //var app = module.exports = express.createServer();
 
 app.set('port', (process.env.PORT || 5000))
@@ -63,35 +63,7 @@ var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXn
 
 // function to translate
 
-function sendTranslation(sender, text) {
-    var translated_text = "trying to translate";
-    var Result;
-    string website =    "https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149397726,d.cGc&biw=1298&bih=678&dpr=1&um=1&ie=UTF-8&hl=en&client=tw-ob#en/fr/"
 
-    
-
-
-
-    messageData = {
-        text:translated_text
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token:token},
-        method: 'POST',
-        json: {
-            recipient: {id:sender},
-            message: messageData,
-        }
-    }, function(error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error)
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
-        }
-    })
-
-}
 
 // function to echo back messages - added by Stefan
 
