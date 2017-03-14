@@ -102,7 +102,7 @@ function sendTranslation(sender, text) {
         target: 'fr'
     }, function (result) {
         console.log(result);
-        Answer = result;
+        Answer = String(result);
     });
     messageData = {
         text: Answer
