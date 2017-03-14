@@ -49,7 +49,9 @@ app.post('/webhook/', function (req, res) {
             }
             sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
             sendTranslation(sender, text.substring(0, 200))
-            sendTester(sender, text.substring(0, 200))
+            sendScrapetry(sender, text.substring(0, 200))
+            sendTest1(sender, text.substring(0, 200))
+            sendTest2(sender, text.substring(0, 200))
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
@@ -64,9 +66,12 @@ var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXn
 //scrape google translate
 
 var Answer = "Kangaroo"
-var Test
-// function to scrape
+var Answer2 = "zebra"
+var Test1 = "didn't get here 1"
+var Test2 = "didn't get here 2"
 
+
+// final function for google translate
 function Translate(text) {
     var url_for_googletranslate = "https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149397726,d.cGc&biw=1298&bih=678&dpr=1&um=1&ie=UTF-8&hl=en&client=tw-ob#en/fr/";
     var first = decodeURI(url_for_googletranslate);
@@ -97,12 +102,13 @@ function Translate(text) {
 
 }
 
-//function to test
+//function to test scrape
 app.get('/scrape', function (req, res) {
     url = 'http://www.churchofzion.org/'
     request(url, function (error, response, html) {
         // First we'll check to make sure no errors occurred when making the request
         if (!error) {
+            Test1 = "got here, no error for request url in scrape";
             // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
             var $ = cheerio.load(html);
             // Finally, we'll define the variables we're going to capture
@@ -115,66 +121,16 @@ app.get('/scrape', function (req, res) {
                 // Utilizing jQuery we can easily navigate and get the text by writing the following code:
                 result = data.children().first().text();
                 // Once we have our title, we'll store it to the our json object.
-                Test = result;
+                Test2 ="we are running results"
+                Answer2 = result;
             })
         }
     })
 })
 
-function sendTester(sender, text) {
-    //Answer = "don't know how to translate yet"
-    //   Answer = JSON.stringify(json, null, 4);
-    messageData = {
-        text: Test
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: { access_token: token },
-        method: 'POST',
-        json: {
-            recipient: { id: sender },
-            message: messageData,
-        }
-    }, function (error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error)
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
-        }
-    })
-
-
-}
-
-// function to translate
-
-function sendTranslation(sender, text) {
-    //Answer = "don't know how to translate yet"
-    //   Answer = JSON.stringify(json, null, 4);
-    messageData = {
-        text:Answer
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: { access_token: token },
-        method: 'POST',
-        json: {
-            recipient: { id: sender },
-            message: messageData,
-        }
-    }, function (error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error)
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
-        }
-    })
-
-
-}
+//all messages
 
 // function to echo back messages - added by Stefan
-
 function sendTextMessage(sender, text) {
     messageData = {
         text:text
@@ -188,6 +144,94 @@ function sendTextMessage(sender, text) {
             message: messageData,
         }
     }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+
+// place for final translation
+function sendTranslation(sender, text) {
+    messageData = {
+        text: Answer
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: { access_token: token },
+        method: 'POST',
+        json: {
+            recipient: { id: sender },
+            message: messageData,
+        }
+    }, function (error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+
+// place for first try scrape
+function sendScrapetry(sender, text) {
+    messageData = {
+        text: Answer2
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: { access_token: token },
+        method: 'POST',
+        json: {
+            recipient: { id: sender },
+            message: messageData,
+        }
+    }, function (error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+
+// test1
+function sendTest1(sender, text) {
+    messageData = {
+        text: Test1
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: { access_token: token },
+        method: 'POST',
+        json: {
+            recipient: { id: sender },
+            message: messageData,
+        }
+    }, function (error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+
+// test2
+function sendTest2(sender, text) {
+    messageData = {
+        text: Test2
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: { access_token: token },
+        method: 'POST',
+        json: {
+            recipient: { id: sender },
+            message: messageData,
+        }
+    }, function (error, response, body) {
         if (error) {
             console.log('Error sending messages: ', error)
         } else if (response.body.error) {
