@@ -59,12 +59,9 @@ app.post('/webhook/', function (req, res) {
                 final = String(result);
             });
             setTimeout(function () {
-
-                sendTranslation(sender, "first");
-                sendTranslation(sender, final);
-            }, 10000);
-            sendTranslation(sender, "second")
-            sendTranslation(sender, final)
+                sendTextMessage(sender, "translating");
+            }, 100000);
+            sendTextMessage(sender, final)
             }
         if (event.postback) {
             text = JSON.stringify(event.postback)
@@ -101,31 +98,6 @@ function sendTextMessage(sender, text) {
     })
 }
 
-
-// place for final translation
-function sendTranslation(sender, input) {
-    messageData = {
-        text: input
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: { access_token: token },
-        method: 'POST',
-        json: {
-            recipient: { id: sender },
-            message: messageData,
-        }
-    }, function (error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error)
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
-        }
-    })
-        
-       
-    
-}
 
 // Send an test message back as two cards.
 
