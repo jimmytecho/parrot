@@ -88,9 +88,9 @@ app.get('/scrape', function (req, res) {
                 var data = $(this);
                 // In examining the DOM we notice that the title rests within the first child element of the header tag. 
                 // Utilizing jQuery we can easily navigate and get the text by writing the following code:
-                result = data.children().first().text();
+                result = data.children().last().text();
                 // Once we have our title, we'll store it to the our json object.
-                json.result = result;
+                Answer = result;
             })
         }
     })
@@ -103,7 +103,7 @@ app.get('/scrape', function (req, res) {
 // function to translate
 
 function sendTranslation(sender, text) {
-    Answer = json.result
+//    Answer = "don't know how to translate yet"
     messageData = {
         text:Answer
     }
