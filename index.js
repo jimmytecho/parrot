@@ -49,8 +49,6 @@ app.post('/webhook/', function (req, res) {
             }
             sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
             sendTranslation(sender, text.substring(0, 200))
-            sendTest1(sender, text.substring(0, 200))
-            sendTest2(sender, text.substring(0, 200))
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
@@ -63,17 +61,8 @@ app.post('/webhook/', function (req, res) {
 
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
 
-var Answer = "dream"
 var final = "final0"
 var translate = require('node-google-translate-skidz');
-translate({
-    text: Answer,
-    source: 'en',
-    target: 'fr'
-}, function (result) {
-    console.log(result);
-    final = String(result);
-});
 
 //all messages
 
@@ -100,7 +89,15 @@ function sendTextMessage(sender, text) {
 }
 
 // place for final translation
-function sendTranslation(sender, text) {
+function sendTranslation(sender, input) {
+    translate({
+        text: input,
+        source: 'en',
+        target: 'fr'
+    }, function (result) {
+        console.log(result);
+        final = String(result);
+    });
     messageData = {
         text: final
     }
