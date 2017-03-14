@@ -88,17 +88,23 @@ function sendTextMessage(sender, text) {
     })
 }
 
+function wait(input) {
+    setTimeout(function () {
+        translate({
+            text: input,
+            source: 'en',
+            target: 'fr'
+        }, function (result) {
+            console.log(result);
+            final = String(result);
+        });
+
+    }, 2000);
+}
+
 // place for final translation
 function sendTranslation(sender, input) {
-    translate({
-        text: input,
-        source: 'en',
-        target: 'fr'
-    }, function (result) {
-        console.log(result);
-        final = String(result);
-    });
-
+    wait(input);
     messageData = {
         text: final
     }
