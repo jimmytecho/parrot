@@ -103,10 +103,9 @@ function Translate(text) {
 }
 
 //function to test scrape
-app.get('/scrape', function (req, res) {
-    url = 'http://www.churchofzion.org/'
-    request('https://www.google.com/', function (error, response, html) {
+ request('https://www.google.com/', function (error, response, html) {
         // First we'll check to make sure no errors occurred when making the request
+        Test2 = "Huston there is an error"
         if (!error) {
             Test1 = "got here, no error for request url in scrape";
             // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
@@ -126,7 +125,6 @@ app.get('/scrape', function (req, res) {
             })
         }
     })
-})
 
 //all messages
 
