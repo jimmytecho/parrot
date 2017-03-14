@@ -34,7 +34,7 @@ app.listen(app.get('port'), function() {
 
 
 // API End Point - added by Stefan
-
+var Answer = "Answer0"
 
 app.post('/webhook/', function (req, res) {
     messaging_events = req.body.entry[0].messaging
@@ -49,6 +49,7 @@ app.post('/webhook/', function (req, res) {
             }
             sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
             sendTranslation(sender, text.substring(0, 200))
+            Answer = text.substring(0,200)
             sendTest1(sender, text.substring(0, 200))
             sendTest2(sender, text.substring(0, 200))
         }
@@ -63,7 +64,7 @@ app.post('/webhook/', function (req, res) {
 
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
 
-var Answer = "Answer was not modified"
+
 var Test1 = "Kangaroo"
 var Test2 = "Happy"
 
@@ -102,10 +103,10 @@ function sendTranslation(sender, text) {
         target: 'fr'
     }, function (result) {
         console.log(result);
-        text = String(result);
+        Answer = String(result);
     });
     messageData = {
-        text: text
+        text: Answer
     }
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
