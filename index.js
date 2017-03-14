@@ -2,8 +2,7 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var request = require('request')
 var cheerio = require('cheerio')
-var phantom = require('phantom')
-var http = require('http')
+var translate = require('node-google-translate-skidz');
 var app = express()
 
 //var jsdom = require('jsdom')
@@ -81,29 +80,10 @@ http.get(
   }));
 
 var Answer = "Answer was not modified"
+var Test1 = "Kangaroo"
+var Test2 = "Happy"
 
-var Test2 = "didn't get here 2"
 
-request('https://translate.google.com/#en/fr/dream', function (error, response, html) {
-    // First we'll check to make sure no errors occurred when making the request
-    if (!error) {
-        
-        // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
-        var $ = cheerio.load(html);
-        // Finally, we'll define the variables we're going to capture
-        var result;
-        $('#result_box').filter(function () {
-            // Let's store the data we filter into a variable so we can easily see what's going on.
-            var data = $(this);
-            // In examining the DOM we notice that the title rests within the first child element of the header tag. 
-            // Utilizing jQuery we can easily navigate and get the text by writing the following code:
-            result = data.children().html();
-            // Once we have our title, we'll store it to the our json object.
-            Test2 = "we are running results"
-            //Answer = String(result)  
-        })
-    }
-})
 
 
 //all messages
@@ -132,6 +112,14 @@ function sendTextMessage(sender, text) {
 
 // place for final translation
 function sendTranslation(sender, text) {
+    translate({
+        text: text,
+        source: 'en',
+        target: 'fr'
+    }, function (result) {
+        console.log(result);
+        Answer = result;
+    });
     messageData = {
         text: Answer
     }
