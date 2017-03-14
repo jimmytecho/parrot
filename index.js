@@ -101,7 +101,7 @@ app.get('/scrape', function (req, res) {
 // function to translate
 
 function sendTranslation(sender, text) {
-    Answer = "testing"
+    Answer = json.result
     messageData = {
         text:Answer
     }
