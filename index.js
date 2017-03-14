@@ -69,7 +69,7 @@ var Answer = "Answer was not modified"
 var Test1 = "didn't get here 1"
 var Test2 = "didn't get here 2"
 
-
+/*
 request('https://translate.google.com/#en/fr/dream', function (error, response, html) {
     // First we'll check to make sure no errors occurred when making the request
     if (!error) {
@@ -91,7 +91,7 @@ request('https://translate.google.com/#en/fr/dream', function (error, response, 
         })
     }
 })
-
+*/
 //function to test scrape
 /*
 request('http://www.churchofzion.org/', function (error, response, html) {
