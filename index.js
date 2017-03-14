@@ -38,7 +38,7 @@ app.listen(app.get('port'), function () {
 
 var input
 var final
-var firstreply = true
+var start
 app.post('/webhook/', function (req, res) {
     
     messaging_events = req.body.entry[0].messaging
@@ -52,7 +52,6 @@ app.post('/webhook/', function (req, res) {
                 sendGenericMessage(sender)
                 continue
             }
-            firstreply = true
             translate({
                 text: input,
                 source: 'en',
@@ -61,14 +60,12 @@ app.post('/webhook/', function (req, res) {
                 console.log(result);
                 final = String(result);
             });
+            startprocess()
+            setTimeout(function () {
+                clearTimeout(start);
+            }, 4000)
         //  sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
-            if (firstreply) {
-                setTimeout(function () {
-                    sendTranslation(sender, text.substring(0, 200));
-                }, 5000);
-                firstreply = false
-            }
-
+         
             
         }
         if (event.postback) {
@@ -81,6 +78,16 @@ app.post('/webhook/', function (req, res) {
 })
 
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
+
+function startprocess() {
+    start = setTimeout(function () {
+        sendTranslation(sender, text.substring(0, 200));
+    }, 3000);
+}
+
+
+
+
 
 //all messages
 
