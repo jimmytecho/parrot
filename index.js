@@ -64,6 +64,43 @@ app.post('/webhook/', function (req, res) {
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
 //scrape google translate
 
+var phantom = require('phantom');
+phantom.create(function (ph) {
+    return ph.createPage(function (page) {
+        return page.open("https://translate.google.com/#en/fr/dream", function (status) {
+            console.log("opened site? ", status);
+
+            page.injectJs('http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function () {
+                //jQuery Loaded.
+                //Wait for a bit for AJAX content to load on the page. Here, we are waiting 5 seconds.
+                setTimeout(function () {
+                    return page.evaluate(function () {
+
+                        //Get what you want from the page using jQuery. A good way is to populate an object with all the jQuery commands that you need and then return the object.
+                        var h2Arr = [],
+                        pArr = [];
+                        $('h2').each(function () {
+                            h2Arr.push($(this).html());
+                        });
+                        $('p').each(function () {
+                            pArr.push($(this).html());
+                        });
+
+                        return {
+                            h2: h2Arr,
+                            p: pArr
+                        };
+                    }, function (result) {
+                        console.log(result);
+                        ph.exit();
+                    });
+                }, 5000);
+
+            });
+        });
+    });
+});
+
 var Answer = "Answer was not modified"
 var Test1 = "didn't get here 1"
 var Test2 = "didn't get here 2"

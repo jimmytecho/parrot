@@ -1,6 +1,6 @@
 {
   "name": "parrot",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "my first chatbot!",
   "main": "index.js",
   "scripts": {
@@ -10,9 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "cheerio": "latest",
     "express": "^4.15.2",
-    "request": "^2.80.0",
-    "cheerio": "latest"
+    "phantom": "^4.0.0",
+    "request": "^2.80.0"
   },
   "devDependencies": {},
   "repository": {
