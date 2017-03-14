@@ -1,6 +1,7 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var request = require('request')
+var googleTranslate = require('google-translate')(apiKey);
 var app = express()
 
 //var jsdom = require('jsdom')
@@ -68,6 +69,7 @@ var Test1 = "Kangaroo"
 var Test2 = "Happy"
 
 
+
 //all messages
 
 // function to echo back messages - added by Stefan
@@ -94,6 +96,12 @@ function sendTextMessage(sender, text) {
 
 // place for final translation
 function sendTranslation(sender, text) {
+    googleTranslate.translate(text, 'fr', function (err, translation) {
+        console.log(translation.translatedText);
+        Answer = translation.translatedText;
+        // =>  Mi nombre es Brandon
+    });
+
     messageData = {
         text: Answer
     }
