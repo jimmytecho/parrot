@@ -3,6 +3,7 @@ var bodyParser = require('body-parser')
 var request = require('request')
 var cheerio = require('cheerio')
 var phantom = require('phantom')
+var http = require('http')
 var app = express()
 
 //var jsdom = require('jsdom')
