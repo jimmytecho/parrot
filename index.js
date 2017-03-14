@@ -67,40 +67,19 @@ var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXn
 //scrape google translate
 var Test1 = "didn't get here 1"
 
-phantom.create(function (ph) {
-    return ph.createPage(function (page) {
-        return page.open("https://translate.google.com/#en/fr/dream", function (status) {
-            console.log("opened site? ", status);
-            Test1 = "got here, phatom opened tranlate.google";
-            page.injectJs('http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function () {
-                //jQuery Loaded.
-                //Wait for a bit for AJAX content to load on the page. Here, we are waiting 5 seconds.
-                setTimeout(function () {
-                    return page.evaluate(function () {
-
-                        //Get what you want from the page using jQuery. A good way is to populate an object with all the jQuery commands that you need and then return the object.
-                        var h2Arr = [],
-                        pArr = [];
-                        $('h2').each(function () {
-                            h2Arr.push($(this).html());
-                        });
-                        $('p').each(function () {
-                            pArr.push($(this).html());
-                        });
-
-                        return {
-                            h2: h2Arr,
-                            p: pArr
-                        };
-                    }, function (result) {
-                        console.log(result);
-                        ph.exit();
-                    });
-                }, 5000);
-
+page.open("http://phantomjs.org/", function (status) {
+    if (status === "success") {
+        Test1 = "can open web"
+        page.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js", function () {
+            page.evaluate(function () {
+                // lastest version on the web
+                console.log("$(\"span.version\").text() -> " + $("span.version").text());
             });
+            phantom.exit(0);
         });
-    });
+    } else {
+        phantom.exit(1);
+    }
 });
 
 var Answer = "Answer was not modified"
