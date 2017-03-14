@@ -96,12 +96,6 @@ function sendTextMessage(sender, text) {
 
 // place for final translation
 function sendTranslation(sender, text) {
-    googleTranslate.translate(text, 'fr', function (err, translation) {
-        console.log(translation.translatedText);
-        Answer = translation.translatedText;
-        // =>  Mi nombre es Brandon
-    });
-
     messageData = {
         text: Answer
     }
