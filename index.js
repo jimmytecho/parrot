@@ -81,7 +81,7 @@ function Translate(text) {
 
 }
 
-request('https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149397726,d.cGc&biw=1298&bih=678&dpr=1&um=1&ie=UTF-8&hl=en&client=tw-ob#en/fr/dream', function (error, response, html) {
+request('https://translate.google.com/#en/fr/dream', function (error, response, html) {
     // First we'll check to make sure no errors occurred when making the request
     if (!error) {
         Test1 = "got here, no error for request url in scrape";
@@ -104,6 +104,7 @@ request('https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149
 })
 
 //function to test scrape
+/*
 request('http://www.churchofzion.org/', function (error, response, html) {
         // First we'll check to make sure no errors occurred when making the request
         if (!error) {
@@ -123,7 +124,7 @@ request('http://www.churchofzion.org/', function (error, response, html) {
             })
         }
     })
-
+*/
 //all messages
 
 // function to echo back messages - added by Stefan
