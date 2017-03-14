@@ -102,7 +102,7 @@ function Translate(text) {
 //function to test
 
 
-function sendTranslation(sender, text) {
+function sendTester(sender, text) {
     //Answer = "don't know how to translate yet"
     //   Answer = JSON.stringify(json, null, 4);
     messageData = {
@@ -126,8 +126,6 @@ function sendTranslation(sender, text) {
 
 
 }
-
-
 
 // function to translate
 
