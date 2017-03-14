@@ -59,9 +59,12 @@ app.post('/webhook/', function (req, res) {
                 final = String(result);
             });
             setTimeout(function () {
+
                 sendTranslation(sender, "first");
+                sendTranslation(sender, final);
             }, 10000);
             sendTranslation(sender, "second")
+            sendTranslation(sender, final)
             }
         if (event.postback) {
             text = JSON.stringify(event.postback)
@@ -73,9 +76,6 @@ app.post('/webhook/', function (req, res) {
 })
 
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
-
-var final = "final0"
-var isPaused = true
 
 //all messages
 
@@ -104,16 +104,8 @@ function sendTextMessage(sender, text) {
 
 // place for final translation
 function sendTranslation(sender, input) {
-    translate({
-        text: input,
-        source: 'en',
-        target: 'fr'
-    }, function (result) {
-        console.log(result);
-        final = String(result);
-    });
     messageData = {
-        text: final
+        text: input
     }
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
