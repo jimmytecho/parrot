@@ -34,7 +34,7 @@ app.listen(app.get('port'), function() {
 
 
 // API End Point - added by Stefan
-var Answer = "Answer0"
+
 
 app.post('/webhook/', function (req, res) {
     messaging_events = req.body.entry[0].messaging
@@ -49,7 +49,6 @@ app.post('/webhook/', function (req, res) {
             }
             sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
             sendTranslation(sender, text.substring(0, 200))
-            Answer = text.substring(0,200)
             sendTest1(sender, text.substring(0, 200))
             sendTest2(sender, text.substring(0, 200))
         }
@@ -64,9 +63,7 @@ app.post('/webhook/', function (req, res) {
 
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
 
-
-var Test1 = "Kangaroo"
-var Test2 = "Happy"
+var Answer = "dream"
 var final = "final0"
 var translate = require('node-google-translate-skidz');
 translate({
@@ -123,51 +120,6 @@ function sendTranslation(sender, text) {
         }
     })
 }
-
-// test1
-function sendTest1(sender, text) {
-    messageData = {
-        text: Test1
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: { access_token: token },
-        method: 'POST',
-        json: {
-            recipient: { id: sender },
-            message: messageData,
-        }
-    }, function (error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error)
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
-        }
-    })
-}
-
-// test2
-function sendTest2(sender, text) {
-    messageData = {
-        text: Test2
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: { access_token: token },
-        method: 'POST',
-        json: {
-            recipient: { id: sender },
-            message: messageData,
-        }
-    }, function (error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error)
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
-        }
-    })
-}
-
 
 // Send an test message back as two cards.
 
