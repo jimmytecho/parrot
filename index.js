@@ -67,6 +67,7 @@ var Answer = "Answer was not modified"
 var Test1 = "Kangaroo"
 var Test2 = "Happy"
 
+var translate = require('node-google-translate-skidz');
 
 
 //all messages
