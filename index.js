@@ -50,7 +50,7 @@ app.post('/webhook/', function (req, res) {
                 continue    
             }
             sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
-            input = text
+            sendTranslation(sender, text.substring(0, 200))
         if (event.postback) {
             text = JSON.stringify(event.postback)
             sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
@@ -63,15 +63,6 @@ app.post('/webhook/', function (req, res) {
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
 
 var final
-translate({
-    text: input,
-    source: 'en',
-    target: 'fr'
-}, function (result) {
-    console.log(result);
-    final = String(result);
-});
-sendTextMessage(sender, final) 
 
 
 //all messages
@@ -97,6 +88,37 @@ function sendTextMessage(sender, text) {
         }
     })
 }
+
+function sendTranslation(sender, input) {
+    translate({
+        text: input,
+        source: 'en',
+        target: 'fr'
+    }, function (result) {
+        console.log(result);
+        final = String(result);
+    });
+    messageData = {
+        text:final
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+
+
 
 
 // Send an test message back as two cards.
