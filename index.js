@@ -97,11 +97,12 @@ function sendTextMessage(sender, text) {
 // place for final translation
 function sendTranslation(sender, text) {
     translate({
-        text: 'text',
+        text: text,
         source: 'en',
         target: 'fr'
     }, function (result) {
         console.log(result);
+        Answer = result;
     });
     messageData = {
         text: Answer
