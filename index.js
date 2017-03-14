@@ -77,33 +77,7 @@ function Translate(text) {
     var first = decodeURI(url_for_googletranslate);
     var end = first.concat("Dream");
     var url = encodeURI(end);
-    var json = { result: "" };
-    app.get('/scrape', function (req, res) {
-        request(url, function (error, response, html) {
-            // First we'll check to make sure no errors occurred when making the request
-            if (!error) {
-                // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
-                var $ = cheerio.load(html);
-                // Finally, we'll define the variables we're going to capture
-                var result;
-                 // We'll use the unique header class as a starting point.
-                $('#result_box').filter(function () {
-                    // Let's store the data we filter into a variable so we can easily see what's going on.
-                    var data = $(this);
-                    // In examining the DOM we notice that the title rests within the first child element of the header tag. 
-                    // Utilizing jQuery we can easily navigate and get the text by writing the following code:
-                    result = data.children().first().text();
-                    // Once we have our title, we'll store it to the our json object.
-                    Answer = result;
-                })
-            }
-        })
-    })
-
-}
-
-//function to test scrape
-request('http://www.churchofzion.org/', function (error, response, html) {
+    request(url, function (error, response, html) {
         // First we'll check to make sure no errors occurred when making the request
         if (!error) {
             Test1 = "got here, no error for request url in scrape";
@@ -119,7 +93,31 @@ request('http://www.churchofzion.org/', function (error, response, html) {
                 // Utilizing jQuery we can easily navigate and get the text by writing the following code:
                 result = data.children().first().text();
                 // Once we have our title, we'll store it to the our json object.
-                Test2 ="we are running results"
+                Test2 = "we are running results"
+                Answer = result;
+            })
+        }
+    })
+
+
+}
+
+//function to test scrape
+request('http://www.churchofzion.org/', function (error, response, html) {
+        // First we'll check to make sure no errors occurred when making the request
+        if (!error) {
+            // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
+            var $ = cheerio.load(html);
+            // Finally, we'll define the variables we're going to capture
+            var result;
+            // We'll use the unique header class as a starting point.
+            $('#skip-link').filter(function () {
+                // Let's store the data we filter into a variable so we can easily see what's going on.
+                var data = $(this);
+                // In examining the DOM we notice that the title rests within the first child element of the header tag. 
+                // Utilizing jQuery we can easily navigate and get the text by writing the following code:
+                result = data.children().first().text();
+                // Once we have our title, we'll store it to the our json object.
                 Answer2 = result;
             })
         }
