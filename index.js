@@ -71,16 +71,6 @@ var Test1 = "Kangaroo"
 var Test2 = "Happy"
 
 
-translate({
-    text: text,
-    source: 'en',
-    target: 'fr'
-}, function (result) {
-    console.log(result);
-    Answer = result;
-    Test1 = "not kangaroo";
-});
-
 //all messages
 
 // function to echo back messages - added by Stefan
