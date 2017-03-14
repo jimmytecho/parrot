@@ -49,7 +49,6 @@ app.post('/webhook/', function (req, res) {
             }
             sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
             sendTranslation(sender, text.substring(0, 200))
-            sendScrapetry(sender, text.substring(0, 200))
             sendTest1(sender, text.substring(0, 200))
             sendTest2(sender, text.substring(0, 200))
         }
@@ -69,51 +68,6 @@ var Answer = "Answer was not modified"
 var Test1 = "didn't get here 1"
 var Test2 = "didn't get here 2"
 
-/*
-request('https://translate.google.com/#en/fr/dream', function (error, response, html) {
-    // First we'll check to make sure no errors occurred when making the request
-    if (!error) {
-        Test1 = "got here, no error for request url in scrape";
-        // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
-        var $ = cheerio.load(html);
-        // Finally, we'll define the variables we're going to capture
-        var result;
-        // We'll use the unique header class as a starting point.
-        $('#result_box').filter(function () {
-            // Let's store the data we filter into a variable so we can easily see what's going on.
-            var data = $(this);
-            // In examining the DOM we notice that the title rests within the first child element of the header tag. 
-            // Utilizing jQuery we can easily navigate and get the text by writing the following code:
-            result = data.children().first().text();
-            // Once we have our title, we'll store it to the our json object.
-            Test2 = "we are running results"
-            Answer = result;
-        })
-    }
-})
-*/
-//function to test scrape
-/*
-request('http://www.churchofzion.org/', function (error, response, html) {
-        // First we'll check to make sure no errors occurred when making the request
-        if (!error) {
-            // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
-            var $ = cheerio.load(html);
-            // Finally, we'll define the variables we're going to capture
-            var result;
-            // We'll use the unique header class as a starting point.
-            $('#skip-link').filter(function () {
-                // Let's store the data we filter into a variable so we can easily see what's going on.
-                var data = $(this);
-                // In examining the DOM we notice that the title rests within the first child element of the header tag. 
-                // Utilizing jQuery we can easily navigate and get the text by writing the following code:
-                result = data.children().first().text();
-                // Once we have our title, we'll store it to the our json object.
-                Answer2 = result;
-            })
-        }
-    })
-*/
 //all messages
 
 // function to echo back messages - added by Stefan
