@@ -69,7 +69,7 @@ var Test1 = "didn't get here 1"
 
 phantom.create().then(function (ph) {
     ph.createPage().then(function (page) {
-        page.open('https://stackoverflow.com/').then(function (status) {
+        page.open('https://translate.google.com/#en/fr/dream').then(function (status) {
             Test1 = "opened";
             console.log(status);
             page.property('content').then(function (content) {
