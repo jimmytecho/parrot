@@ -2,6 +2,7 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var request = require('request')
 var cheerio = require('cheerio')
+var phantom = require('phantom')
 var app = express()
 
 //var jsdom = require('jsdom')
@@ -36,6 +37,7 @@ app.listen(app.get('port'), function() {
 
 // API End Point - added by Stefan
 
+
 app.post('/webhook/', function (req, res) {
     messaging_events = req.body.entry[0].messaging
     for (i = 0; i < messaging_events.length; i++) {
@@ -63,8 +65,8 @@ app.post('/webhook/', function (req, res) {
 
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
 //scrape google translate
+var Test1 = "didn't get here 1"
 
-var phantom = require('phantom');
 phantom.create(function (ph) {
     return ph.createPage(function (page) {
         return page.open("https://translate.google.com/#en/fr/dream", function (status) {
@@ -102,7 +104,7 @@ phantom.create(function (ph) {
 });
 
 var Answer = "Answer was not modified"
-var Test1 = "didn't get here 1"
+
 var Test2 = "didn't get here 2"
 
 request('https://translate.google.com/#en/fr/dream', function (error, response, html) {
