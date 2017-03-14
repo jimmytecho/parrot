@@ -60,9 +60,12 @@ app.post('/webhook/', function (req, res) {
 })
 
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
+//scrape google translate
+
+/*
 var url1 = 'https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149397726,d.cGc&biw=1298&bih=678&dpr=1&um=1&ie=UTF-8&hl=en&client=tw-ob#en/fr/why%20do%20you%20say%20that%0A%20and%20now%3F!%40%23%24'
 var Answer
-//scrape google translate
+
 app.get('/scrape', function (req, res) {
     // The URL we will scrape from - in our example Anchorman 2.
     url = url1;
@@ -95,7 +98,7 @@ app.get('/scrape', function (req, res) {
     })
 })
 
-
+*/
 
 // function to translate
 
