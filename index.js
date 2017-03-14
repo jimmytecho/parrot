@@ -63,6 +63,7 @@ app.post('/webhook/', function (req, res) {
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
 
 var final = "final0"
+var isPaused = true
 
 //all messages
 
@@ -88,41 +89,46 @@ function sendTextMessage(sender, text) {
     })
 }
 
-function wait(input) {
-    setTimeout(function () {
-        translate({
-            text: input,
-            source: 'en',
-            target: 'fr'
-        }, function (result) {
-            console.log(result);
-            final = String(result);
-        });
-
-    }, 2000);
+function wait_for_translate(input) {
+    translate({
+        text: input,
+        source: 'en',
+        target: 'fr'
+    }, function (result) {
+        console.log(result);
+        final = String(result);
+    });
+    isPaused = false   
 }
 
 // place for final translation
 function sendTranslation(sender, input) {
-    wait(input);
-    messageData = {
-        text: final
+    wait_for_translate(input)
+    
+    if (isPaused) {
+        setTimeout(function () { wait_for_translate() }, 5000);
+    } else {
+        messageData = {
+            text: final
+        }
+        request({
+            url: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: { access_token: token },
+            method: 'POST',
+            json: {
+                recipient: { id: sender },
+                message: messageData,
+            }
+        }, function (error, response, body) {
+            if (error) {
+                console.log('Error sending messages: ', error)
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error)
+            }
+        })
+        isPaused = true
     }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: { access_token: token },
-        method: 'POST',
-        json: {
-            recipient: { id: sender },
-            message: messageData,
-        }
-    }, function (error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error)
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
-        }
-    })
+    
 }
 
 // Send an test message back as two cards.
