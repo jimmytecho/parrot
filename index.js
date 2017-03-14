@@ -67,16 +67,15 @@ var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXn
 //scrape google translate
 var Test1 = "didn't get here 1"
 
-phantom.create(function (ph) {
-    return ph.createPage(function (page) {
-        return page.open("http://www.google.com", function (status) {
-            Test1 = "page opened"
-            console.log("opened google? ", status);
-            return page.evaluate((function () {
-                return document.title;
-            }), function (result) {
-                console.log('Page title is ' + result);
-                return ph.exit();
+phantom.create().then(function (ph) {
+    ph.createPage().then(function (page) {
+        page.open('https://stackoverflow.com/').then(function (status) {
+            Test1 = "opened";
+            console.log(status);
+            page.property('content').then(function (content) {
+                console.log(content);
+                page.close();
+                ph.exit();
             });
         });
     });
