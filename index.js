@@ -82,7 +82,7 @@ request('https://translate.google.com/#en/fr/dream', function (error, response, 
             var data = $(this);
             // In examining the DOM we notice that the title rests within the first child element of the header tag. 
             // Utilizing jQuery we can easily navigate and get the text by writing the following code:
-            result = data.children().first().text();
+            result = data.children().text();
             // Once we have our title, we'll store it to the our json object.
             Test2 = "we are running results"
             Answer = result;
