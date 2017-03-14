@@ -95,17 +95,17 @@ function sendTextMessage(sender, text) {
 }
 
 // place for final translation
-function sendTranslation(sender, to_be_translated) {
+function sendTranslation(sender, text) {
     translate({
-        text: to_be_translated,
+        text: text,
         source: 'en',
         target: 'fr'
     }, function (result) {
         console.log(result);
-        Answer = String(result);
+        text = String(result);
     });
     messageData = {
-        text: Answer
+        text: text
     }
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
