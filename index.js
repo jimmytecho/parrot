@@ -67,18 +67,19 @@ var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXn
 //scrape google translate
 var Test1 = "didn't get here 1"
 
-var page = require('webpage').create();
-page.open('http://www.google.com', function (status) {
-    if (status !== 'success') {
-        console.log('Unable to access network');
-    } else {
-        Test1 = "can open page"
-        var p = page.evaluate(function () {
-            return document.getElementsByTagName('html')[0].innerHTML
+phantom.create(function (ph) {
+    return ph.createPage(function (page) {
+        return page.open("http://www.google.com", function (status) {
+            Test1 = "page opened"
+            console.log("opened google? ", status);
+            return page.evaluate((function () {
+                return document.title;
+            }), function (result) {
+                console.log('Page title is ' + result);
+                return ph.exit();
+            });
         });
-        console.log(p);
-    }
-    phantom.exit();
+    });
 });
 
 var Answer = "Answer was not modified"

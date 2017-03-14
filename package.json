@@ -1,6 +1,6 @@
 {
   "name": "parrot",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "my first chatbot!",
   "main": "index.js",
   "scripts": {
