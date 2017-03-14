@@ -95,9 +95,9 @@ function sendTextMessage(sender, text) {
 }
 
 // place for final translation
-function sendTranslation(sender, text) {
+function sendTranslation(sender, to_be_translated) {
     translate({
-        text: text,
+        text: to_be_translated,
         source: 'en',
         target: 'fr'
     }, function (result) {
