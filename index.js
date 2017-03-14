@@ -84,7 +84,15 @@ var Test1 = "Kangaroo"
 var Test2 = "Happy"
 
 
-
+translate({
+    text: text,
+    source: 'en',
+    target: 'fr'
+}, function (result) {
+    console.log(result);
+    Answer = result;
+    Test1 = "not kangaroo";
+});
 
 //all messages
 
@@ -112,14 +120,6 @@ function sendTextMessage(sender, text) {
 
 // place for final translation
 function sendTranslation(sender, text) {
-    translate({
-        text: text,
-        source: 'en',
-        target: 'fr'
-    }, function (result) {
-        console.log(result);
-        Answer = result;
-    });
     messageData = {
         text: Answer
     }
