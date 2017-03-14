@@ -67,19 +67,18 @@ var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXn
 //scrape google translate
 var Test1 = "didn't get here 1"
 
-page.open("http://phantomjs.org/", function (status) {
-    if (status === "success") {
-        Test1 = "can open web"
-        page.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js", function () {
-            page.evaluate(function () {
-                // lastest version on the web
-                console.log("$(\"span.version\").text() -> " + $("span.version").text());
-            });
-            phantom.exit(0);
-        });
+var page = require('webpage').create();
+page.open('http://www.google.com', function (status) {
+    if (status !== 'success') {
+        console.log('Unable to access network');
     } else {
-        phantom.exit(1);
+        Test1 = "can open page"
+        var p = page.evaluate(function () {
+            return document.getElementsByTagName('html')[0].innerHTML
+        });
+        console.log(p);
     }
+    phantom.exit();
 });
 
 var Answer = "Answer was not modified"
