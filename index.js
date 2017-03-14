@@ -49,8 +49,20 @@ app.post('/webhook/', function (req, res) {
                 continue    
             }
             sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
-            sendTranslation(sender, text.substring(0, 200))
-        }
+            input = text
+            translate({
+                text: input,
+                source: 'en',
+                target: 'fr'
+            }, function (result) {
+                console.log(result);
+                final = String(result);
+            });
+            setTimeout(function () {
+                sendTranslation(sender, "first");
+            }, 10000);
+            sendTranslation(sender, "second")
+            }
         if (event.postback) {
             text = JSON.stringify(event.postback)
             sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
@@ -89,7 +101,9 @@ function sendTextMessage(sender, text) {
     })
 }
 
-function wait_for_translate(input) {
+
+// place for final translation
+function sendTranslation(sender, input) {
     translate({
         text: input,
         source: 'en',
@@ -98,36 +112,26 @@ function wait_for_translate(input) {
         console.log(result);
         final = String(result);
     });
-    isPaused = false   
-}
-
-// place for final translation
-function sendTranslation(sender, input) {
-    wait_for_translate(input)
-    
-    if (isPaused) {
-        setTimeout(function () { wait_for_translate() }, 5000);
-    } else {
-        messageData = {
-            text: final
-        }
-        request({
-            url: 'https://graph.facebook.com/v2.6/me/messages',
-            qs: { access_token: token },
-            method: 'POST',
-            json: {
-                recipient: { id: sender },
-                message: messageData,
-            }
-        }, function (error, response, body) {
-            if (error) {
-                console.log('Error sending messages: ', error)
-            } else if (response.body.error) {
-                console.log('Error: ', response.body.error)
-            }
-        })
-        isPaused = true
+    messageData = {
+        text: final
     }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: { access_token: token },
+        method: 'POST',
+        json: {
+            recipient: { id: sender },
+            message: messageData,
+        }
+    }, function (error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+        
+       
     
 }
 
