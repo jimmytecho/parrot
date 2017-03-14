@@ -63,7 +63,7 @@ app.post('/webhook/', function (req, res) {
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
 //scrape google translate
 
-var Answer = "Hope"
+var Answer = "Kangaroo"
 var Test
 // function to scrape
 
@@ -71,7 +71,6 @@ function Translate(text) {
     var url_for_googletranslate = "https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149397726,d.cGc&biw=1298&bih=678&dpr=1&um=1&ie=UTF-8&hl=en&client=tw-ob#en/fr/";
     var first = decodeURI(url_for_googletranslate);
     var end = first.concat("Dream");
-    Test = end;
     var url = encodeURI(end);
     var json = { result: "" };
     app.get('/scrape', function (req, res) {
@@ -90,17 +89,37 @@ function Translate(text) {
                     // Utilizing jQuery we can easily navigate and get the text by writing the following code:
                     result = data.children().first().text();
                     // Once we have our title, we'll store it to the our json object.
-                    json.result = result;
+                    Answer = result;
                 })
             }
         })
     })
 
-    Answer = JSON.stringify(json, null, 1);
 }
 
 //function to test
-
+app.get('/scrape', function (req, res) {
+    url = 'http://www.churchofzion.org/'
+    request(url, function (error, response, html) {
+        // First we'll check to make sure no errors occurred when making the request
+        if (!error) {
+            // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
+            var $ = cheerio.load(html);
+            // Finally, we'll define the variables we're going to capture
+            var result;
+            // We'll use the unique header class as a starting point.
+            $('#skip-link').filter(function () {
+                // Let's store the data we filter into a variable so we can easily see what's going on.
+                var data = $(this);
+                // In examining the DOM we notice that the title rests within the first child element of the header tag. 
+                // Utilizing jQuery we can easily navigate and get the text by writing the following code:
+                result = data.children().first().text();
+                // Once we have our title, we'll store it to the our json object.
+                Test = result;
+            })
+        }
+    })
+})
 
 function sendTester(sender, text) {
     //Answer = "don't know how to translate yet"
