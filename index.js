@@ -48,6 +48,7 @@ app.post('/webhook/', function (req, res) {
                 continue    
             }
             sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
+            sendTranslation(sender, text.substring(0, 200))
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
@@ -99,7 +100,29 @@ app.get('/scrape', function (req, res) {
 
 // function to translate
 
-//nothing here yet
+function sendTranslation(sender, text) {
+    Answer = "testing"
+    messageData = {
+        text:Answer
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: { access_token: token },
+        method: 'POST',
+        json: {
+            recipient: { id: sender },
+            message: messageData,
+        }
+    }, function (error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+
+
+}
 
 // function to echo back messages - added by Stefan
 
