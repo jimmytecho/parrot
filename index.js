@@ -1,6 +1,7 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var request = require('request')
+var translate = require('node-google-translate-skidz');
 var app = express()
 
 //var jsdom = require('jsdom')
@@ -62,7 +63,6 @@ app.post('/webhook/', function (req, res) {
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
 
 var final = "final0"
-var translate = require('node-google-translate-skidz');
 
 //all messages
 
