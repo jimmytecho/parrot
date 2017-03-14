@@ -59,7 +59,7 @@ app.post('/webhook/', function (req, res) {
                 final = String(result);
             });
             setTimeout(function () {
-                sendTextMessage(sender, "translating");
+                useless_function();
             }, 100000);
             sendTextMessage(sender, final)
             }
@@ -73,6 +73,13 @@ app.post('/webhook/', function (req, res) {
 })
 
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
+useless_function(){
+    var obj = {a: 1, b: 2, c: 3};
+    
+    for (var prop in obj) {
+        console.log('obj.' + prop, '=', obj[prop]);
+    }
+}
 
 //all messages
 
