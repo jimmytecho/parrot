@@ -69,7 +69,7 @@ phantom.create(function (ph) {
     return ph.createPage(function (page) {
         return page.open("https://translate.google.com/#en/fr/dream", function (status) {
             console.log("opened site? ", status);
-
+            Test1 = "got here, phatom opened tranlate.google";
             page.injectJs('http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function () {
                 //jQuery Loaded.
                 //Wait for a bit for AJAX content to load on the page. Here, we are waiting 5 seconds.
@@ -108,7 +108,7 @@ var Test2 = "didn't get here 2"
 request('https://translate.google.com/#en/fr/dream', function (error, response, html) {
     // First we'll check to make sure no errors occurred when making the request
     if (!error) {
-        Test1 = "got here, no error for request url in scrape";
+        
         // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
         var $ = cheerio.load(html);
         // Finally, we'll define the variables we're going to capture
