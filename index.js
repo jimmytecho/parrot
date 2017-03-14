@@ -65,8 +65,8 @@ app.post('/webhook/', function (req, res) {
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
 //scrape google translate
 
-var Answer = "Kangaroo"
-var Answer2 = "zebra"
+var Answer = "Answer was not modified"
+var Answer2 = "Answer2 was not modified"
 var Test1 = "didn't get here 1"
 var Test2 = "didn't get here 2"
 
@@ -105,7 +105,7 @@ function Translate(text) {
 //function to test scrape
 app.get('/scrape', function (req, res) {
     url = 'http://www.churchofzion.org/'
-    request(url, function (error, response, html) {
+    request('https://www.google.com/', function (error, response, html) {
         // First we'll check to make sure no errors occurred when making the request
         if (!error) {
             Test1 = "got here, no error for request url in scrape";
