@@ -36,6 +36,7 @@ app.listen(app.get('port'), function() {
 
 // API End Point - added by Stefan
 
+var input
 
 app.post('/webhook/', function (req, res) {
     messaging_events = req.body.entry[0].messaging
@@ -50,19 +51,6 @@ app.post('/webhook/', function (req, res) {
             }
             sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
             input = text
-            translate({
-                text: input,
-                source: 'en',
-                target: 'fr'
-            }, function (result) {
-                console.log(result);
-                final = String(result);
-            });
-            setTimeout(function () {
-                useless_function();
-            }, 100000);
-            sendTextMessage(sender, final)
-            }
         if (event.postback) {
             text = JSON.stringify(event.postback)
             sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
@@ -73,10 +61,18 @@ app.post('/webhook/', function (req, res) {
 })
 
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
-useless_function(){
-    var x = 1;
-    var y = 1;
-}
+
+var final
+translate({
+    text: input,
+    source: 'en',
+    target: 'fr'
+}, function (result) {
+    console.log(result);
+    final = String(result);
+});
+sendTextMessage(sender, final) 
+
 
 //all messages
 
