@@ -149,6 +149,7 @@ function sendTextMessage(sender, text) {
 
 // place for final translation
 function sendTranslation(sender, text) {
+    Translate(text)
     messageData = {
         text: Answer
     }
