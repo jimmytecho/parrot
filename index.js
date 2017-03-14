@@ -96,6 +96,13 @@ function sendTextMessage(sender, text) {
 
 // place for final translation
 function sendTranslation(sender, text) {
+    translate({
+        text: 'text',
+        source: 'en',
+        target: 'fr'
+    }, function (result) {
+        console.log(result);
+    });
     messageData = {
         text: Answer
     }
