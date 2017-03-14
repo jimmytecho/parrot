@@ -3,6 +3,7 @@ var bodyParser = require('body-parser')
 var request = require('request')
 var cheerio = require('cheerio')
 var translate = require('node-google-translate-skidz');
+var googleTranslate = require('google-translate')(apiKey);
 var app = express()
 
 //var jsdom = require('jsdom')
@@ -64,20 +65,6 @@ app.post('/webhook/', function (req, res) {
 })
 
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
-//scrape google translate
-var Test1 = "didn't get here 1"
-
-http.get(
-  this.prepareURL("http://translate.google.de/translate_a/t?client=t&sl=de&tl=en&hl=de&ie=UTF-8&oe=UTF-8&oc=2&otf=1&ssel=5&tsel=5&pc=1&q=Hallo",
-  function (result) {
-      result.setEncoding('utf8');
-      Test1 = "inside http.get";
-      result.on("data", function (chunk) {
-          console.log(chunk);
-          Answer = String(chunk);
-         
-      });
-  }));
 
 var Answer = "Answer was not modified"
 var Test1 = "Kangaroo"

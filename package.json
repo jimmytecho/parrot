@@ -1,6 +1,6 @@
 {
   "name": "parrot",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "my first chatbot!",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,7 @@
     "body-parser": "^1.17.1",
     "cheerio": "latest",
     "express": "^4.15.2",
+    "google-translate": "^2.0.4",
     "node-google-translate-skidz": "^1.1.0",
     "phantom": "^4.0.0",
     "request": "^2.80.0"
