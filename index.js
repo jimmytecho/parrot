@@ -92,7 +92,7 @@ app.get('/scrape', function (req, res) {
 
                 // Once we have our title, we'll store it to the our json object.
                 json.result = result;
-                Answer = JSON.stringify(json, null, 4);
+               
             })
         }
     })
@@ -105,7 +105,8 @@ app.get('/scrape', function (req, res) {
 // function to translate
 
 function sendTranslation(sender, text) {
-//    Answer = "don't know how to translate yet"
+    //    Answer = "don't know how to translate yet"
+    Answer = JSON.stringify(json, null, 4);
     messageData = {
         text:Answer
     }
