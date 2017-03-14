@@ -61,7 +61,7 @@ app.post('/webhook/', function (req, res) {
             });
             //  sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
             start_process()
-            stop_process()
+            //stop_process()
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
@@ -107,7 +107,7 @@ function start_process() {
 function stop_process() {
     setTimeout(function{
         clearTimeout(start);
-    },5010)
+    },6000)
 }
 // place for final translation
 function sendTranslation(sender, input) {
