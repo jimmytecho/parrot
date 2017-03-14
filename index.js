@@ -73,11 +73,11 @@ var Test2 = "didn't get here 2"
 
 // final function for google translate
 function Translate(text) {
-    var url_for_googletranslate = "https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149397726,d.cGc&biw=1298&bih=678&dpr=1&um=1&ie=UTF-8&hl=en&client=tw-ob#en/fr/";
+    var url_for_googletranslate = "https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149397726,d.cGc&biw=1298&bih=678&dpr=1&um=1&ie=UTF-8&hl=en&client=tw-ob#en/fr/dream";
     var first = decodeURI(url_for_googletranslate);
     var end = first.concat("Dream");
     var url = encodeURI(end);
-    request(url, function (error, response, html) {
+    request(url_for_googletranslate, function (error, response, html) {
         // First we'll check to make sure no errors occurred when making the request
         if (!error) {
             Test1 = "got here, no error for request url in scrape";
