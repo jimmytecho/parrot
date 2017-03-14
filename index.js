@@ -67,9 +67,16 @@ var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXn
 
 var Test1 = "Kangaroo"
 var Test2 = "Happy"
-
+var final = "final0"
 var translate = require('node-google-translate-skidz');
-
+translate({
+    text: Answer,
+    source: 'en',
+    target: 'fr'
+}, function (result) {
+    console.log(result);
+    final = String(result);
+});
 
 //all messages
 
@@ -97,16 +104,8 @@ function sendTextMessage(sender, text) {
 
 // place for final translation
 function sendTranslation(sender, text) {
-    translate({
-        text: text,
-        source: 'en',
-        target: 'fr'
-    }, function (result) {
-        console.log(result);
-        Answer = String(result);
-    });
     messageData = {
-        text: Answer
+        text: final
     }
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
