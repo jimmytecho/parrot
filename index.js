@@ -66,7 +66,6 @@ var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXn
 //scrape google translate
 
 var Answer = "Answer was not modified"
-var Answer2 = "Answer2 was not modified"
 var Test1 = "didn't get here 1"
 var Test2 = "didn't get here 2"
 
@@ -77,30 +76,32 @@ function Translate(text) {
     var first = decodeURI(url_for_googletranslate);
     var end = first.concat("Dream");
     var url = encodeURI(end);
-    request('https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149397726,d.cGc&biw=1298&bih=678&dpr=1&um=1&ie=UTF-8&hl=en&client=tw-ob#en/fr/dream', function (error, response, html) {
-        // First we'll check to make sure no errors occurred when making the request
-        if (!error) {
-            Test1 = "got here, no error for request url in scrape";
-            // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
-            var $ = cheerio.load(html);
-            // Finally, we'll define the variables we're going to capture
-            var result;
-            // We'll use the unique header class as a starting point.
-            $('#skip-link').filter(function () {
-                // Let's store the data we filter into a variable so we can easily see what's going on.
-                var data = $(this);
-                // In examining the DOM we notice that the title rests within the first child element of the header tag. 
-                // Utilizing jQuery we can easily navigate and get the text by writing the following code:
-                result = data.children().first().text();
-                // Once we have our title, we'll store it to the our json object.
-                Test2 = "we are running results"
-                Answer = result;
-            })
-        }
-    })
+
 
 
 }
+
+request('https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149397726,d.cGc&biw=1298&bih=678&dpr=1&um=1&ie=UTF-8&hl=en&client=tw-ob#en/fr/dream', function (error, response, html) {
+    // First we'll check to make sure no errors occurred when making the request
+    if (!error) {
+        Test1 = "got here, no error for request url in scrape";
+        // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
+        var $ = cheerio.load(html);
+        // Finally, we'll define the variables we're going to capture
+        var result;
+        // We'll use the unique header class as a starting point.
+        $('#result_box').filter(function () {
+            // Let's store the data we filter into a variable so we can easily see what's going on.
+            var data = $(this);
+            // In examining the DOM we notice that the title rests within the first child element of the header tag. 
+            // Utilizing jQuery we can easily navigate and get the text by writing the following code:
+            result = data.children().first().text();
+            // Once we have our title, we'll store it to the our json object.
+            Test2 = "we are running results"
+            Answer = result;
+        })
+    }
+})
 
 //function to test scrape
 request('http://www.churchofzion.org/', function (error, response, html) {
@@ -149,31 +150,9 @@ function sendTextMessage(sender, text) {
 
 // place for final translation
 function sendTranslation(sender, text) {
-    Translate(text)
+    Translate(text);
     messageData = {
         text: Answer
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: { access_token: token },
-        method: 'POST',
-        json: {
-            recipient: { id: sender },
-            message: messageData,
-        }
-    }, function (error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error)
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
-        }
-    })
-}
-
-// place for first try scrape
-function sendScrapetry(sender, text) {
-    messageData = {
-        text: Answer2
     }
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
