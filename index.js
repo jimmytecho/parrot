@@ -48,9 +48,23 @@ app.post('/webhook/', function (req, res) {
                 sendGenericMessage(sender)
                 continue    
             }
-            sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
-            sendTranslation(sender, text.substring(0, 200))
-        }
+            sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring
+            input = text
+            final = "hi, I am translating"
+            translate({
+                text: input,
+                source: 'en',
+                target: 'fr'
+            }, function (result) {
+                console.log(result);
+                final = String(result);
+            });
+            if (final !== "hi, I am translating") {
+                sendTranslation(sender, final)
+            } else {
+                sendTextMessage(sender, final)
+            }
+                    }
         if (event.postback) {
             text = JSON.stringify(event.postback)
             sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
@@ -90,14 +104,6 @@ function sendTextMessage(sender, text) {
 
 // place for final translation
 function sendTranslation(sender, input) {
-    translate({
-        text: input,
-        source: 'en',
-        target: 'fr'
-    }, function (result) {
-        console.log(result);
-        final = String(result);
-    });
     messageData = {
         text: final
     }
