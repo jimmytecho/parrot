@@ -1,12 +1,12 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var request = require('request')
+var cheerio = require('cheerio')
 var app = express()
 
 //var jsdom = require('jsdom')
 //var url = require('url')
 //var app = module.exports = express.createServer();
-
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -45,7 +45,7 @@ app.post('/webhook/', function (req, res) {
             text = event.message.text
             if (text === 'hi') {
                 sendGenericMessage(sender)
-                continue
+                continue    
             }
             sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
             sendTranslation(sender, text.substring(0, 200))
@@ -60,6 +60,42 @@ app.post('/webhook/', function (req, res) {
 })
 
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
+var url1 = 'https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149397726,d.cGc&biw=1298&bih=678&dpr=1&um=1&ie=UTF-8&hl=en&client=tw-ob#en/fr/why%20do%20you%20say%20that%0A%20and%20now%3F!%40%23%24'
+var Answer
+//scrape google translate
+app.get('/scrape', function (req, res) {
+    // The URL we will scrape from - in our example Anchorman 2.
+    url = url1;
+    // The structure of our request call
+    // The first parameter is our URL
+    // The callback function takes 3 parameters, an error, response status code and the html
+
+    request(url, function (error, response, html) {
+
+        // First we'll check to make sure no errors occurred when making the request
+        if (!error) {
+            // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
+            var $ = cheerio.load(html);
+            // Finally, we'll define the variables we're going to capture
+            var result;
+            var json = { result: "" };
+            // We'll use the unique header class as a starting point.
+
+            $('#result_box').filter(function () {
+
+                // Let's store the data we filter into a variable so we can easily see what's going on.
+                var data = $(this);
+                // In examining the DOM we notice that the title rests within the first child element of the header tag. 
+                // Utilizing jQuery we can easily navigate and get the text by writing the following code:
+                result = data.children().text();
+                // Once we have our title, we'll store it to the our json object.
+                json.result = result;
+            })
+        }
+    })
+})
+
+
 
 // function to translate
 
