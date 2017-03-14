@@ -67,19 +67,17 @@ var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXn
 //scrape google translate
 var Test1 = "didn't get here 1"
 
-phantom.create().then(function (ph) {
-    ph.createPage().then(function (page) {
-        page.open('https://translate.google.com/#en/fr/dream').then(function (status) {
-            Test1 = "opened";
-            console.log(status);
-            page.property('content').then(function (content) {
-                console.log(content);
-                page.close();
-                ph.exit();
-            });
-        });
-    });
-});
+http.get(
+  this.prepareURL("http://translate.google.de/translate_a/t?client=t&sl=de&tl=en&hl=de&ie=UTF-8&oe=UTF-8&oc=2&otf=1&ssel=5&tsel=5&pc=1&q=Hallo",
+  function (result) {
+      result.setEncoding('utf8');
+      Test1 = "inside http.get";
+      result.on("data", function (chunk) {
+          console.log(chunk);
+          Answer = String(chunk);
+         
+      });
+  }));
 
 var Answer = "Answer was not modified"
 
@@ -101,7 +99,7 @@ request('https://translate.google.com/#en/fr/dream', function (error, response, 
             result = data.children().html();
             // Once we have our title, we'll store it to the our json object.
             Test2 = "we are running results"
-            Answer = String(result)  
+            //Answer = String(result)  
         })
     }
 })
