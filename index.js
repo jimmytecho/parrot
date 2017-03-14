@@ -1,7 +1,6 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var request = require('request')
-var googleTranslate = require('google-translate')(apiKey);
 var app = express()
 
 //var jsdom = require('jsdom')
