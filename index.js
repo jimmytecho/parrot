@@ -66,7 +66,7 @@ var Answer
 
 app.get('/scrape', function (req, res) {
     // The URL we will scrape from - in our example Anchorman 2.
-    url = 'https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149397726,d.cGc&biw=1298&bih=678&dpr=1&um=1&ie=UTF-8&hl=en&client=tw-ob#en/fr/why%20do%20you%20say%20that%0A%20and%20now%3F!%40%23%24'
+    url = 'https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149397726,d.cGc&biw=1298&bih=678&dpr=1&um=1&ie=UTF-8&hl=en&client=tw-ob#en/fr/Hope'
     // The structure of our request call
     // The first parameter is our URL
     // The callback function takes 3 parameters, an error, response status code and the html
@@ -82,15 +82,17 @@ app.get('/scrape', function (req, res) {
             var json = { result: "" };
             // We'll use the unique header class as a starting point.
 
-            $('#result_box').filter(function () {
+            $('#result_box').filter(function () { 
 
                 // Let's store the data we filter into a variable so we can easily see what's going on.
                 var data = $(this);
                 // In examining the DOM we notice that the title rests within the first child element of the header tag. 
                 // Utilizing jQuery we can easily navigate and get the text by writing the following code:
                 result = data.children().last().text();
+
                 // Once we have our title, we'll store it to the our json object.
-                Answer = result;
+                json.result = result;
+                Answer = JSON.stringify(json, null, 4);
             })
         }
     })
