@@ -1,6 +1,6 @@
 {
   "name": "parrot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "my first chatbot!",
   "main": "index.js",
   "scripts": {
@@ -13,5 +13,14 @@
     "express": "^4.15.2",
     "request": "^2.80.0",
     "cheerio": "latest"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jimmytecho/parrot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jimmytecho/parrot/issues"
+  },
+  "homepage": "https://github.com/jimmytecho/parrot#readme"
 }

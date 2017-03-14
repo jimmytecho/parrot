@@ -49,6 +49,7 @@ app.post('/webhook/', function (req, res) {
             }
             sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
             sendTranslation(sender, text.substring(0, 200))
+            sendTester(sender, text.substring(0, 200))
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
@@ -62,51 +63,77 @@ app.post('/webhook/', function (req, res) {
 var token = "EAAaVxKEKRM4BAA0Sco3v9D8gYghtzqRehtYJ3zE0SYnOEVOtXbjDJzRqs4EbmLIRXnAxT8KRZA4vRZAI2cBE0joKkOOjiOZBwKu28XWTrWcRkulGWkzH5g4e5PUphZBddZBzeaKBZCGm9wpxrIfV8BZBWfX6cHwYZAvV7Ml42O0rCAZDZD"
 //scrape google translate
 
-var Answer = "Hopes"
+var Answer = "Hope"
+var Test
+// function to scrape
 
-app.get('/scrape', function (req, res) {
-    // The URL we will scrape from - in our example Anchorman 2.
-    url = 'https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149397726,d.cGc&biw=1298&bih=678&dpr=1&um=1&ie=UTF-8&hl=en&client=tw-ob#en/fr/Hope'
-    // The structure of our request call
-    // The first parameter is our URL
-    // The callback function takes 3 parameters, an error, response status code and the html
+function Translate(text) {
+    var url_for_googletranslate = "https://translate.google.com/?ion=1&espv=2&bav=on.2,or.r_cp.&bvm=bv.149397726,d.cGc&biw=1298&bih=678&dpr=1&um=1&ie=UTF-8&hl=en&client=tw-ob#en/fr/";
+    var first = decodeURI(url_for_googletranslate);
+    var end = first.concat("Dream");
+    Test = end;
+    var url = encodeURI(end);
+    var json = { result: "" };
+    app.get('/scrape', function (req, res) {
+        request(url, function (error, response, html) {
+            // First we'll check to make sure no errors occurred when making the request
+            if (!error) {
+                // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
+                var $ = cheerio.load(html);
+                // Finally, we'll define the variables we're going to capture
+                var result;
+                 // We'll use the unique header class as a starting point.
+                $('#result_box').filter(function () {
+                    // Let's store the data we filter into a variable so we can easily see what's going on.
+                    var data = $(this);
+                    // In examining the DOM we notice that the title rests within the first child element of the header tag. 
+                    // Utilizing jQuery we can easily navigate and get the text by writing the following code:
+                    result = data.children().first().text();
+                    // Once we have our title, we'll store it to the our json object.
+                    json.result = result;
+                })
+            }
+        })
+    })
 
-    request(url, function (error, response, html) {
+    Answer = JSON.stringify(json, null, 1);
+}
 
-        // First we'll check to make sure no errors occurred when making the request
-        if (!error) {
-            // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
-            var $ = cheerio.load(html);
-            // Finally, we'll define the variables we're going to capture
-            var result;
-            var json = { result: "" };
-            // We'll use the unique header class as a starting point.
+//function to test
 
-            $('#result_box').filter(function () { 
 
-                // Let's store the data we filter into a variable so we can easily see what's going on.
-                var data = $(this);
-                // In examining the DOM we notice that the title rests within the first child element of the header tag. 
-                // Utilizing jQuery we can easily navigate and get the text by writing the following code:
-                result = data.children().last().text();
-
-                // Once we have our title, we'll store it to the our json object.
-                json.result = result;
-               
-            })
+function sendTranslation(sender, text) {
+    //Answer = "don't know how to translate yet"
+    //   Answer = JSON.stringify(json, null, 4);
+    messageData = {
+        text: Test
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: { access_token: token },
+        method: 'POST',
+        json: {
+            recipient: { id: sender },
+            message: messageData,
+        }
+    }, function (error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
         }
     })
-})
 
-// function to scrape
-//???
+
+}
+
 
 
 // function to translate
 
 function sendTranslation(sender, text) {
-    //    Answer = "don't know how to translate yet"
-    Answer = JSON.stringify(json, null, 4);
+    //Answer = "don't know how to translate yet"
+    //   Answer = JSON.stringify(json, null, 4);
     messageData = {
         text:Answer
     }
