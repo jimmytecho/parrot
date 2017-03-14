@@ -85,7 +85,6 @@ request('https://translate.google.com/#en/fr/dream', function (error, response, 
             result = data.children().text();
             // Once we have our title, we'll store it to the our json object.
             Test2 = "we are running results"
-            Answer = result;
         })
     }
 })
