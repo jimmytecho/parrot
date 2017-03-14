@@ -38,7 +38,9 @@ app.listen(app.get('port'), function () {
 
 var input
 var final
+var firstreply = true
 app.post('/webhook/', function (req, res) {
+    
     messaging_events = req.body.entry[0].messaging
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i]
@@ -50,6 +52,7 @@ app.post('/webhook/', function (req, res) {
                 sendGenericMessage(sender)
                 continue
             }
+            firstreply = true
             translate({
                 text: input,
                 source: 'en',
@@ -59,11 +62,14 @@ app.post('/webhook/', function (req, res) {
                 final = String(result);
             });
         //  sendTextMessage(sender, text.substring(0, 200))   //< "parrot: " + >was before text.substring 
+            if (firstreply) {
+                setTimeout(function () {
+                    sendTranslation(sender, text.substring(0, 200));
+                }, 5000);
+                firstreply = false
+            }
 
-            setTimeout(function () {
-                sendTranslation(sender);
-            }, 5000);
-
+            
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
@@ -101,7 +107,7 @@ function sendTextMessage(sender, text) {
 }
 
 // place for final translation
-function sendTranslation(sender) {
+function sendTranslation(sender, input) {
     messageData = {
         text: final
     }
