@@ -19,14 +19,6 @@
  在運用setTimeout 跟 clearTimeout 讓程式等待 4秒，
  之後便將回復信息(翻譯成法文後的句子)送出
  
-            startprocess()
-            setTimeout(function () {
-                clearTimeout(start);
-            }, 4000)
-        }
-        if (event.postback) {
-            text = JSON.stringify(event.postback)
-            sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
-            continue
-        }
-   
+                        startprocess()
+                        setTimeout(function () {
+                          clearTimeout(start);}, 4000)
